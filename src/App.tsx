@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Homepage from './pages/homepage/Homepage.component';
+import './App.scss';
 
-class App extends Component {
-  render() {
-    return <div>hello there tester</div>;
-  }
+function App() {
+  return (
+    <div>
+      <Homepage />
+    </div>
+  );
 }
 
 export default App;
