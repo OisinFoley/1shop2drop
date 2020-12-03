@@ -1,4 +1,4 @@
-import { Directory } from './directory.interface';
+import { Directory } from './Directory.interface';
 
 export const sections: Directory[] = [
   {
