@@ -12,5 +12,6 @@
     "sourceMap": true,
     "target": "es5"
   },
+  "include": ["src/components", "src/custom.d.ts"],
   "exclude": ["node_modules"]
 }

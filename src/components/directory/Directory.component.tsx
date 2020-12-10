@@ -1,11 +1,11 @@
 import React from 'react';
-import MenuItem from '../menu-item/Menu-item';
+import MenuItem from '../menu-item/MenuItem.component';
 import { sections } from './Directory.data';
-import { Directory as DirectoryInterface } from './Directory.interface';
-import './directory.styles.scss';
+import { DirectoryItem } from './DirectoryItem.types';
+import './Directory.styles.scss';
 
 interface State {
-  sections: DirectoryInterface[];
+  sections: DirectoryItem[];
 }
 
 class Directory extends React.Component<{}, State> {
@@ -18,8 +18,8 @@ class Directory extends React.Component<{}, State> {
   render() {
     return (
       <div className="directory-menu">
-        {this.state.sections.map(({ id, ...otherSectionsProp }) => (
-          <MenuItem key={id} {...otherSectionsProp} />
+        {this.state.sections.map((props) => (
+          <MenuItem key={props.id} {...props} />
         ))}
       </div>
     );

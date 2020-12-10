@@ -1,8 +1,18 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
-import './menu-item.styles.scss';
+import React, { FC } from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { DirectoryItem } from '../directory/DirectoryItem.types';
+import './MenuItem.styles.scss';
 
-const MenuItem = ({ title, imageUrl, size, history, linkUrl, match }) => {
+interface Props extends RouteComponentProps, DirectoryItem {}
+
+const MenuItem: FC<Props> = ({
+  title,
+  imageUrl,
+  size,
+  history,
+  linkUrl,
+  match,
+}) => {
   return (
     <div
       className={`${size} menu-item`}

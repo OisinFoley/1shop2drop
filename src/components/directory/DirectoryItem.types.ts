@@ -1,7 +1,7 @@
-export interface Directory {
+export interface DirectoryItem {
   title: string;
   imageUrl: string;
-  id: number;
+  id: number | null;
   linkUrl: string;
   size?: string;
 }

@@ -1,6 +1,6 @@
-import { Directory } from './Directory.interface';
+import { DirectoryItem } from './DirectoryItem.types';
 
-export const sections: Directory[] = [
+export const sections: DirectoryItem[] = [
   {
     title: 'hats',
     imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',

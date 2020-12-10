@@ -10,6 +10,9 @@
 /build
 /dist
 
+# TODOs
+todos.txt
+
 # misc
 .DS_Store
 .env.local
