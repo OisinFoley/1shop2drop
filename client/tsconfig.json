@@ -3,14 +3,15 @@
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "module": "commonjs",
+    "jsx": "react",
+    "module": "es6",
     "moduleResolution": "node",
     "noImplicitAny": false,
     "outDir": "./dist/",
     "skipLibCheck": true,
     "sourceMap": true,
-    "target": "esnext"
+    "target": "es5"
   },
-  "include": ["client/src/components", "client/src/custom.d.ts"],
+  "include": ["src/components", "src/custom.d.ts"],
   "exclude": ["node_modules"]
 }
