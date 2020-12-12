@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import CollectionPreview from '../../components/collection-preview/CollectionPreview.component';
-import { ShopPageState as State } from './Shop.types';
+import { ShopCategory } from './Shop.types';
 import SHOP_DATA from './Shop.data';
 
+interface State {
+  collections: ShopCategory[];
+}
+
 class ShopPage extends Component<{}, State> {
+  private readonly collections: ShopCategory[];
   constructor(props) {
     super(props);
 

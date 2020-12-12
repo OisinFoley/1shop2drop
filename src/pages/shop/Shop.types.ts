@@ -11,7 +11,3 @@ export interface ShopItem {
   imageUrl: string;
   price: number;
 }
-
-export interface ShopPageState {
-  collections: ShopCategory[];
-}

@@ -9,6 +9,7 @@ interface State {
 }
 
 class Directory extends React.Component<{}, State> {
+  private readonly sections: DirectoryItem[];
   constructor(props) {
     super(props);
 
