@@ -4,12 +4,16 @@ client/node_modules
 /.pnp
 .pnp.js
 
+# vscode
+.vscode
+
 # testing
 client/coverage
 
 # production
 client/build
 client/dist
+dist
 
 # development keys
 src/config/keys_dev.ts

@@ -1,12 +1,13 @@
-// TODO: implement class based off of an abstraction
-// TODO: make me more generic so that I am not coupled to a MongoDB data store implementation
-class ProductionConfig {
-  mongoURI = '';
-  secret = '';
+import { Config } from '../types/common';
+
+/** @implements {Config} */
+class ProductionConfig implements Config {
+  databaseUri = '';
+  password = '';
 
   constructor() {
-    this.mongoURI = process.env.mongoURI || '';
-    this.secret = process.env.secretOrKey || '';
+    this.databaseUri = process.env.databaseUri || '';
+    this.password = process.env.password || '';
   }
 }
 

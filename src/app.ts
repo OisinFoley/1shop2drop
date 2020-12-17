@@ -1,26 +1,22 @@
-import express, { Request, Response, NextFunction } from 'express';
-import bodyParser from 'body-parser';
+import express, { Request, Response } from 'express';
 import path from 'path';
+import errorMiddleware from './middlewares/error.middleware';
+import { UserRouter } from './routes/api/user.route';
+import { UserDA } from './data-access';
+import { UserService } from './services';
+import { UserController } from './controllers';
 
 const app = express();
+const router = express.Router();
 
 // body-parser middleware
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// TODO: delete me once other routes have been setup
-app.use('/', (req, res) => {
-  console.log(`test`);
-  res.send({ test_response: 'test_response' });
-});
+app.use('/', router);
+UserRouter(router, new UserController(new UserService(new UserDA())));
 
-// error handling
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  console.warn(`Error: on request to ${req.headers.origin}${req.url}`);
-  console.warn(JSON.stringify(err));
-
-  res.status(500).json(err);
-});
+app.use(errorMiddleware);
 
 // serve static assets if production
 if (process.env.NODE_ENV === 'production') {

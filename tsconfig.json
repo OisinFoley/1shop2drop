@@ -6,11 +6,10 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": false,
-    "outDir": "./dist/",
+    "outDir": "dist",
     "skipLibCheck": true,
     "sourceMap": true,
     "target": "esnext"
   },
-  "include": ["client/src/components", "client/src/custom.d.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "client"]
 }

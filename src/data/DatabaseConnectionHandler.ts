@@ -1,17 +1,31 @@
 import mongoose from 'mongoose';
-import config from '../config/keys';
-
 export class DatabaseConnectionHandler {
-  static async initialise(): Promise<void> {
+  /**
+   * @description Initialises connection to database
+   * @param {string} databaseUri - string used to connect to the database engine
+   * @todo Decouple me from Mongoose-specific implementation
+   * @throws {Error} Throws error about database connection failure
+   * @returns {Promise<void>}
+   * @public @static
+   */
+  static async initialise(databaseUri: string): Promise<void> {
     await mongoose
-      .connect(config.mongoURI, {
+      .connect(databaseUri, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
       })
       .then(() => console.info('MongoDb connected.'))
-      .catch((err: Error) => console.log(err));
+      .catch((err) => {
+        throw new Error(err);
+      });
   }
 
+  /**
+   * @description Closes connection to database, then resolves Promise.
+   * @todo Decouple me from Mongoose-specific implementation
+   * @returns {Promise<number>}
+   * @public @static
+   */
   static disconnect(): Promise<number> {
     return new Promise(async (resolve) => {
       mongoose.disconnect((err) => {
