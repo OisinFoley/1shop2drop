@@ -52,6 +52,10 @@ export interface LoginInput {
   password: string;
 }
 
+/**
+ * @description Abstraction of expected response from a successful login
+ * @todo Move me to a package
+ * */
 export interface LoginResponse {
   success: boolean;
   token: string;

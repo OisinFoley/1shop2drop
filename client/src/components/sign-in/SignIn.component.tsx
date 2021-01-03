@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import CustomButton from '../custom-button/CustomButton.component';
 import FormInput from '../form-input/FormInput.component';
+import { FetchApi } from '../../network/fetch-api';
+import { loginEndpoint } from '../../util/config';
 import { EMPTY_SIGNIN_STATE } from '../../util/constants';
 import './SignIn.styles.scss';
 
@@ -9,14 +11,21 @@ interface State {
   password: string;
 }
 
-class SignIn extends Component<{}, State> {
-  constructor(props) {
+interface Props {}
+
+class SignIn extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = EMPTY_SIGNIN_STATE;
   }
 
   private handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+    const loginData = {
+      email: this.state.email,
+      password: this.state.password,
+    };
+    const loginResult = FetchApi.post(loginEndpoint, loginData);
     this.setState(EMPTY_SIGNIN_STATE);
   };
 

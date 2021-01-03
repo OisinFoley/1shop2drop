@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import CustomButton from '../custom-button/CustomButton.component';
 import FormInput from '../form-input/FormInput.component';
+import { registerEndpoint } from '../../util/config';
 import { EMPTY_SIGNUP_STATE } from '../../util/constants';
 import './SignUp.styles.scss';
+import { FetchApi } from '../../network/fetch-api';
 
 interface State {
   displayName: string;
@@ -11,8 +13,10 @@ interface State {
   confirmPassword: string;
 }
 
-class SignUp extends Component<{}, State> {
-  constructor(props) {
+interface Props {}
+
+class SignUp extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = EMPTY_SIGNUP_STATE;
   }
@@ -25,6 +29,14 @@ class SignUp extends Component<{}, State> {
       return alert("password don't match");
     }
 
+    const registerData = {
+      email,
+      displayName,
+      password,
+      confirmPassword,
+    };
+
+    const registerResult = FetchApi.post(registerEndpoint, registerData);
     this.setState(EMPTY_SIGNUP_STATE);
   };
 

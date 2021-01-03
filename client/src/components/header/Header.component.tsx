@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../../public/assets/crown.svg';
 import { AppComponentState } from '../../types/app.types';
+import { isValidCurrentUser } from '../../util/helpers';
 import './Header.styles.scss';
 
 interface Props extends AppComponentState {
@@ -21,7 +22,7 @@ const Header: FC<Props> = ({ currentUser, signOut }) => {
         <Link className="option" to="/shop">
           CONTACT
         </Link>
-        {currentUser ? (
+        {isValidCurrentUser(currentUser) ? (
           <div className="option" onClick={signOut}>
             SIGN OUT
           </div>

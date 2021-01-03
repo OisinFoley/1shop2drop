@@ -9,23 +9,26 @@ import {
   AuthenticatedUser,
 } from './types/app.types';
 import './App.scss';
+import {
+  EMPTY_CURRENT_USER_STATE,
+  JWT_TOKEN_IDENTIFIER,
+} from './util/constants';
+import { getUserFromToken } from './util/helpers';
 
 class App extends Component<{}, State> {
   private currentUser: AuthenticatedUser;
   constructor(props) {
     super(props);
-
+    const user: AuthenticatedUser | null = getUserFromToken();
     this.state = {
-      currentUser: {
-        displayName: 'Oisin Foley',
-        email: 'oisinfoley@yahoo.co.uk',
-      },
+      currentUser: user || EMPTY_CURRENT_USER_STATE,
     };
   }
 
   private handleSignOut = (): void => {
+    localStorage.removeItem(JWT_TOKEN_IDENTIFIER);
     this.setState({
-      currentUser: null,
+      currentUser: EMPTY_CURRENT_USER_STATE,
     });
   };
 

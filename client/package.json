@@ -31,6 +31,7 @@
     "babel-preset-expo": "^8.3.0",
     "css-loader": "^4.3.0",
     "html-webpack-plugin": "^4.4.1",
+    "http-method-enum": "^1.0.0",
     "node-sass": "^5.0.0",
     "sass": "^1.29.0",
     "sass-loader": "^10.1.0",
