@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import CustomButton from '../custom-button/CustomButton.component';
 import FormInput from '../form-input/FormInput.component';
-import { FetchApi } from '../../network/fetch-api';
-import { loginEndpoint } from '../../util/config';
 import { EMPTY_SIGNIN_STATE } from '../../util/constants';
+import { LoginInput } from '../../types/app.types';
+import { loginUser } from '../../redux/user/user.actions';
 import './SignIn.styles.scss';
 
 interface State {
@@ -11,7 +12,11 @@ interface State {
   password: string;
 }
 
-interface Props {}
+interface DispatchProps {
+  loginUser: (loginData: LoginInput) => void;
+}
+
+type Props = DispatchProps;
 
 class SignIn extends Component<Props, State> {
   constructor(props: Props) {
@@ -25,7 +30,7 @@ class SignIn extends Component<Props, State> {
       email: this.state.email,
       password: this.state.password,
     };
-    const loginResult = FetchApi.post(loginEndpoint, loginData);
+    this.props.loginUser(loginData);
     this.setState(EMPTY_SIGNIN_STATE);
   };
 
@@ -67,4 +72,8 @@ class SignIn extends Component<Props, State> {
   }
 }
 
-export default SignIn;
+const mapDispatchToProps = {
+  loginUser: (loginData: LoginInput) => loginUser(loginData),
+};
+
+export default connect<null, DispatchProps>(null, mapDispatchToProps)(SignIn);

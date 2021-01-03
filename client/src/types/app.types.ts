@@ -1,8 +1,3 @@
-/** @description Describes state of the AppComponent */
-export interface AppComponentState {
-  currentUser: AuthenticatedUser;
-}
-
 export interface AuthenticatedUser extends UserDetails {}
 
 /**
@@ -15,6 +10,15 @@ export interface UserDetails {
   email: string;
   displayName: string;
   dateJoined: Date;
+}
+
+/**
+ * @description Abstraction of expected input for a login request
+ * @todo Move me to a package
+ * */
+export interface LoginInput {
+  email: string;
+  password: string;
 }
 
 /**

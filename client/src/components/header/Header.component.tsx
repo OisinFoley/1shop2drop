@@ -1,13 +1,21 @@
 import React, { FC } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Logo from '../../../public/assets/crown.svg';
-import { AppComponentState } from '../../types/app.types';
+import { AuthenticatedUser } from '../../types/app.types';
 import { isValidCurrentUser } from '../../util/helpers';
+import { AppState } from '../../redux/root-reducer';
 import './Header.styles.scss';
 
-interface Props extends AppComponentState {
+interface StateProps {
+  currentUser: AuthenticatedUser;
+}
+
+interface DispatchProps {
   signOut: () => void;
 }
+
+type Props = Readonly<StateProps & DispatchProps>;
 
 const Header: FC<Props> = ({ currentUser, signOut }) => {
   return (
@@ -36,4 +44,8 @@ const Header: FC<Props> = ({ currentUser, signOut }) => {
   );
 };
 
-export default Header;
+const mapStateToProps = (state: AppState): StateProps => ({
+  currentUser: state.user.currentUser,
+});
+
+export default connect<StateProps, DispatchProps>(mapStateToProps)(Header);

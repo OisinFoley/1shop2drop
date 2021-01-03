@@ -47,6 +47,10 @@ export interface UserDetails {
   dateJoined: Date;
 }
 
+/**
+ * @description Abstraction of expected input for a login request
+ * @todo Move me to a package
+ * */
 export interface LoginInput {
   email: string;
   password: string;
