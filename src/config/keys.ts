@@ -7,7 +7,7 @@ import DevelopmentConfig from './keys_dev';
  */
 class Keys {
   /** @static */
-  static config: any =
+  static config: ProductionConfig | DevelopmentConfig =
     process.env.NODE_ENV === 'production'
       ? new ProductionConfig()
       : new DevelopmentConfig();

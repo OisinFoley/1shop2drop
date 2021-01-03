@@ -25,6 +25,9 @@ class HttpException extends Error {
   private static getStatusCodeFromMessage(message: string): number {
     switch (true) {
       case message === ErrorHandlingStrings.email_already_taken:
+      case message === ErrorHandlingStrings.no_user_for_email:
+      // TODO: the following error type is returing a 500 instead of a 400
+      case message === ErrorHandlingStrings.password_not_match:
         return 400;
       default:
         return 500;

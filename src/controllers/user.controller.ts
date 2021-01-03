@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import {
+  LoginInput,
+  LoginResponse,
   RegisterInput,
   UserControllerContract,
   UserServiceContract,
@@ -32,6 +34,30 @@ export class UserController implements UserControllerContract {
       const userData: RegisterInput = { ...req.body };
       const createdUser = await this.service.register(userData);
       res.status(201).json(createdUser);
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
+
+  /**
+   * @description Extracts data from request and calls UserService before returning response
+   * @param {Object} req Express request object
+   * @param {Object} res Express response object
+   * @param {Object} next function to call next Express middleware in request-response cycle
+   * @returns {Promise<void>}
+   * @throws {any}
+   * @public
+   */
+  public async login(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      const loginData: LoginInput = { ...req.body };
+      const token: LoginResponse = await this.service.login(loginData);
+      res.json(token);
     } catch (error) {
       console.log(error);
       next(error);
