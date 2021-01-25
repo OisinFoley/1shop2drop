@@ -8,7 +8,7 @@ import {
 } from '../../types/app.types';
 import { loginEndpoint } from '../../util/config';
 import { JWT_TOKEN_IDENTIFIER } from '../../util/constants';
-import { SET_CURRENT_USER } from '../types';
+import { UserActions } from './types';
 
 /**
  * @description Redux action to call login API endpoint,
@@ -34,6 +34,6 @@ export const loginUser = (loginData: LoginInput) => async (
  * @param user - new user payload
  */
 export const setCurrentUser = (user: AuthenticatedUser) => ({
-  type: SET_CURRENT_USER,
+  type: UserActions.SET_CURRENT_USER,
   payload: user,
 });

@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom';
 import Logo from '../../../public/assets/crown.svg';
 import { AuthenticatedUser } from '../../types/app.types';
 import { isValidCurrentUser } from '../../util/helpers';
-import { AppState } from '../../redux/root-reducer';
 import './Header.styles.scss';
+import CartIcon from '../cart-icon/CartIcon.component';
+import CartDropdown from '../cart-dropdown/CartDropdown.component';
 
 interface StateProps {
   currentUser: AuthenticatedUser;
+  hidden: boolean;
 }
 
 interface DispatchProps {
@@ -17,7 +19,7 @@ interface DispatchProps {
 
 type Props = Readonly<StateProps & DispatchProps>;
 
-const Header: FC<Props> = ({ currentUser, signOut }) => {
+const Header: FC<Props> = ({ currentUser, hidden, signOut }) => {
   return (
     <div className="header">
       <Link className="logo-container" to="/">
@@ -39,13 +41,19 @@ const Header: FC<Props> = ({ currentUser, signOut }) => {
             SIGN IN
           </Link>
         )}
+        <CartIcon />
       </div>
+      {hidden ? null : <CartDropdown />}
     </div>
   );
 };
 
-const mapStateToProps = (state: AppState): StateProps => ({
-  currentUser: state.user.currentUser,
+const mapStateToProps = ({
+  user: { currentUser },
+  cart: { hidden },
+}): StateProps => ({
+  currentUser,
+  hidden,
 });
 
 export default connect<StateProps, DispatchProps>(mapStateToProps)(Header);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Homepage from './pages/home/Home.component';
 import ShopPage from './pages/shop/Shop.component';
@@ -11,13 +11,18 @@ import {
   EMPTY_CURRENT_USER_STATE,
   JWT_TOKEN_IDENTIFIER,
 } from './util/constants';
-import { getUserFromToken } from './util/helpers';
-import { setCurrentUser } from './redux/user/user.actions';
+import { getUserFromToken, isValidCurrentUser } from './util/helpers';
+import { setCurrentUser } from './redux/user';
+import { AppState } from './redux';
+
+interface StateProps {
+  currentUser: AuthenticatedUser;
+}
 interface DispatchProps {
   setCurrentUser: (user: AuthenticatedUser) => void;
 }
 
-type Props = Readonly<DispatchProps>;
+type Props = Readonly<StateProps & DispatchProps>;
 
 class App extends Component<Props> {
   constructor(props: Props) {
@@ -35,7 +40,7 @@ class App extends Component<Props> {
   // TODO: handle me as a redux action
   private handleSignOut = (): void => {
     localStorage.removeItem(JWT_TOKEN_IDENTIFIER);
-    setCurrentUser(EMPTY_CURRENT_USER_STATE);
+    this.props.setCurrentUser(EMPTY_CURRENT_USER_STATE);
   };
 
   render() {
@@ -45,15 +50,32 @@ class App extends Component<Props> {
         <Switch>
           <Route exact path="/" component={Homepage} />
           <Route exact path="/shop" component={ShopPage} />
-          <Route exact path="/authenticate" component={AuthenticatePage} />
+          <Route
+            exact
+            path="/authenticate"
+            render={() =>
+              isValidCurrentUser(this.props.currentUser) ? (
+                <Redirect to="/" />
+              ) : (
+                <AuthenticatePage />
+              )
+            }
+          />
         </Switch>
       </div>
     );
   }
 }
 
+const mapStateToProps = (state: AppState): StateProps => ({
+  currentUser: state.user.currentUser,
+});
+
 const mapDispatchToProps = {
-  setCurrentUser: (user: AuthenticatedUser) => setCurrentUser(user),
+  setCurrentUser,
 };
 
-export default connect<{}, DispatchProps>(null, mapDispatchToProps)(App);
+export default connect<StateProps, DispatchProps, {}, AppState>(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

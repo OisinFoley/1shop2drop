@@ -73,7 +73,7 @@ class SignIn extends Component<Props, State> {
 }
 
 const mapDispatchToProps = {
-  loginUser: (loginData: LoginInput) => loginUser(loginData),
+  loginUser,
 };
 
 export default connect<null, DispatchProps>(null, mapDispatchToProps)(SignIn);
