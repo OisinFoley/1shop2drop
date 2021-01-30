@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './CartIcon.styles.scss';
 import ShoppingIcon from '../../../public/assets/shopping-bag.svg';
-import { toggleCartHidden } from '../../redux/cart/cart.actions';
+import { toggleCartHidden } from '../../redux/cart';
 
 interface DispatchProps {
   toggleCartHidden: () => void;

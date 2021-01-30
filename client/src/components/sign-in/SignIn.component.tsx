@@ -4,7 +4,7 @@ import CustomButton from '../custom-button/CustomButton.component';
 import FormInput from '../form-input/FormInput.component';
 import { EMPTY_SIGNIN_STATE } from '../../util/constants';
 import { LoginInput } from '../../types/app.types';
-import { loginUser } from '../../redux/user/user.actions';
+import { loginUser } from '../../redux/user';
 import './SignIn.styles.scss';
 
 interface State {

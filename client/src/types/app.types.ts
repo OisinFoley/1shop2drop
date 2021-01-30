@@ -29,3 +29,23 @@ export interface LoginResponse {
   success: boolean;
   token: string;
 }
+
+/**
+ * @description Represents Category of Shopping Items
+ * */
+export interface ShopCategory {
+  id: number;
+  title: string;
+  routeName: string;
+  items: ShopItem[];
+}
+
+/**
+ * @description Represents a specific Shopping Item
+ * */
+export interface ShopItem {
+  id: number;
+  name: string;
+  imageUrl: string;
+  price: number;
+}

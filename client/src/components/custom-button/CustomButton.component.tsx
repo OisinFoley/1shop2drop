@@ -1,16 +1,32 @@
 import React, { FC } from 'react';
 import './CustomButton.styles.scss';
 
+type ButtonType = 'button' | 'submit' | 'reset';
 interface Props {
-  type: 'button' | 'submit' | 'reset';
+  type: ButtonType;
+  inverted: boolean;
+  onClick?: () => void;
 }
 
-const CustomButton: FC<Props> = ({ children, ...otherProps }) => {
+const buttonDefaultProps: Props = {
+  inverted: false,
+  type: 'button' as ButtonType,
+};
+interface ButtonFC extends FC<Props> {
+  defaultProps: typeof buttonDefaultProps;
+}
+
+const CustomButton: ButtonFC = ({ children, inverted, ...otherProps }) => {
   return (
-    <button className="custom-button" {...otherProps}>
+    <button
+      className={`${inverted ? 'inverted' : ''} custom-button`}
+      {...otherProps}
+    >
       {children}
     </button>
   );
 };
+
+CustomButton.defaultProps = buttonDefaultProps;
 
 export default CustomButton;

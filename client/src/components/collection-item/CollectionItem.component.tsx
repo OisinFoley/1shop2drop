@@ -1,14 +1,22 @@
 import React, { FC } from 'react';
+import { connect } from 'react-redux';
+import CustomButton from '../custom-button/CustomButton.component';
+import { addItem } from '../../redux/cart';
+import { ShopItem } from '../../types/app.types';
 import './CollectionItem.styles.scss';
 
-interface Props {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
+interface OwnProps {
+  item: ShopItem;
 }
 
-const CollectionItem: FC<Props> = ({ id, name, price, imageUrl }) => {
+interface DispatchProps {
+  addItem: (item: ShopItem) => void;
+}
+
+type Props = DispatchProps & OwnProps;
+
+const CollectionItem: FC<Props> = ({ item, addItem }) => {
+  const { name, price, imageUrl } = item;
   return (
     <div className="collection-item">
       <div
@@ -21,8 +29,18 @@ const CollectionItem: FC<Props> = ({ id, name, price, imageUrl }) => {
         <span className="name">{name}</span>
         <span className="price">{price}</span>
       </div>
+      <CustomButton onClick={() => addItem(item)} inverted>
+        ADD TO CART
+      </CustomButton>
     </div>
   );
 };
 
-export default CollectionItem;
+const mapDispatchToProps = {
+  addItem,
+};
+
+export default connect<null, DispatchProps>(
+  null,
+  mapDispatchToProps
+)(CollectionItem);

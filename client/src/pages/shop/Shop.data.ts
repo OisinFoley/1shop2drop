@@ -1,7 +1,7 @@
 /* TODO: use webpack to apply /public/assets prefix to all imageUrl property values */
 /* Used as starting data for ShopPage */
 
-import { ShopCategory } from './Shop.types';
+import { ShopCategory } from '../../types/app.types';
 
 const SHOP_DATA: ShopCategory[] = [
   {

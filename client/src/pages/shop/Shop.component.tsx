@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CollectionPreview from '../../components/collection-preview/CollectionPreview.component';
-import { ShopCategory } from './Shop.types';
+import { ShopCategory } from '../../types/app.types';
 import SHOP_DATA from './Shop.data';
 
 interface State {

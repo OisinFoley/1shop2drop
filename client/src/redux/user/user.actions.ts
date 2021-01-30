@@ -8,7 +8,7 @@ import {
 } from '../../types/app.types';
 import { loginEndpoint } from '../../util/config';
 import { JWT_TOKEN_IDENTIFIER } from '../../util/constants';
-import { UserActions } from './types';
+import { UserActions } from './user.types';
 
 /**
  * @description Redux action to call login API endpoint,
