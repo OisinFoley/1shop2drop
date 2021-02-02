@@ -16,7 +16,7 @@ interface DispatchProps {
   loginUser: (loginData: LoginInput) => void;
 }
 
-type Props = DispatchProps;
+type Props = Readonly<DispatchProps>;
 
 class SignIn extends Component<Props, State> {
   constructor(props: Props) {

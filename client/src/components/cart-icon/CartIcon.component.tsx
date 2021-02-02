@@ -1,24 +1,38 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { connect } from 'react-redux';
-import './CartIcon.styles.scss';
 import ShoppingIcon from '../../../public/assets/shopping-bag.svg';
-import { toggleCartHidden } from '../../redux/cart';
+import { toggleCartHidden, selectCartItemsCount } from '../../redux/cart';
+import { AppState } from '../../redux';
+import './CartIcon.styles.scss';
 
 interface DispatchProps {
   toggleCartHidden: () => void;
 }
 
-const CartIcon = ({ toggleCartHidden }: DispatchProps) => {
+interface StateProps {
+  itemCount: number;
+}
+
+type Props = Readonly<StateProps & DispatchProps>;
+
+const CartIcon: FC<Props> = ({ toggleCartHidden, itemCount }) => {
   return (
     <div className="cart-icon" onClick={toggleCartHidden}>
       <ShoppingIcon className="shopping-icon" />
-      <span className="item-count">0</span>
+      <span className="item-count">{itemCount}</span>
     </div>
   );
 };
+
+const mapStateToProps = (state: AppState): StateProps => ({
+  itemCount: selectCartItemsCount(state),
+});
 
 const mapDispatchToProps = {
   toggleCartHidden,
 };
 
-export default connect<null, DispatchProps>(null, mapDispatchToProps)(CartIcon);
+export default connect<StateProps, DispatchProps>(
+  mapStateToProps,
+  mapDispatchToProps
+)(CartIcon);

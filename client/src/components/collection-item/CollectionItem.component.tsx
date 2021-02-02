@@ -13,7 +13,7 @@ interface DispatchProps {
   addItem: (item: ShopItem) => void;
 }
 
-type Props = DispatchProps & OwnProps;
+type Props = Readonly<DispatchProps & OwnProps>;
 
 const CollectionItem: FC<Props> = ({ item, addItem }) => {
   const { name, price, imageUrl } = item;
