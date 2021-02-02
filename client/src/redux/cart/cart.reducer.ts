@@ -1,9 +1,10 @@
+import { ShoppingCartItem } from '../../types/app.types';
 import { CartActionTypes, CartState, CartActions } from './cart.types';
 import { addItemToCart } from './cart.utils';
 
 const INITIAL_STATE = {
   hidden: true,
-  cartItems: [],
+  cartItems: [] as ShoppingCartItem[],
 };
 
 const cartReducer = (

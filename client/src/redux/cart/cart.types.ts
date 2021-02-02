@@ -1,8 +1,4 @@
-import { ShopItem } from '../../types/app.types';
-
-export interface ShoppingCartItem extends ShopItem {
-  quantity: number;
-}
+import { ShopItem, ShoppingCartItem } from '../../types/app.types';
 
 export enum CartActions {
   TOGGLE_CART_HIDDEN = 'TOGGLE_CART_HIDDEN',

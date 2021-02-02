@@ -49,3 +49,11 @@ export interface ShopItem {
   imageUrl: string;
   price: number;
 }
+
+/**
+ * @description Represents a specific Shopping Cart Item
+ * @extends ShopItem
+ * */
+export interface ShoppingCartItem extends ShopItem {
+  quantity: number;
+}

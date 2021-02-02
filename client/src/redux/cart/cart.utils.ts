@@ -1,5 +1,4 @@
-import { ShopItem } from '../../types/app.types';
-import { ShoppingCartItem } from './cart.types';
+import { ShopItem, ShoppingCartItem } from '../../types/app.types';
 
 /**
  *
