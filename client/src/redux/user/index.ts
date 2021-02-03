@@ -1,2 +1,4 @@
 import { loginUser, setCurrentUser } from './user.actions';
-export { loginUser, setCurrentUser };
+import { selectCurrentUser } from './user.selectors';
+
+export { loginUser, setCurrentUser, selectCurrentUser };

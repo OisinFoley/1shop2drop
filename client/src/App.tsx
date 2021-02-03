@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import Homepage from './pages/home/Home.component';
 import ShopPage from './pages/shop/Shop.component';
 import Header from './components/header/Header.component';
 import AuthenticatePage from './pages/authenticate/Authenticate.component';
 import { AuthenticatedUser } from './types/app.types';
+import { getUserFromToken, isValidCurrentUser } from './util/helpers';
+import { selectCurrentUser, setCurrentUser } from './redux/user';
+import { AppState } from './redux';
 import './App.scss';
 import {
   EMPTY_CURRENT_USER_STATE,
   JWT_TOKEN_IDENTIFIER,
 } from './util/constants';
-import { getUserFromToken, isValidCurrentUser } from './util/helpers';
-import { setCurrentUser } from './redux/user';
-import { AppState } from './redux';
 
 interface StateProps {
   currentUser: AuthenticatedUser;
@@ -67,8 +68,8 @@ class App extends Component<Props> {
   }
 }
 
-const mapStateToProps = (state: AppState): StateProps => ({
-  currentUser: state.user.currentUser,
+const mapStateToProps = createStructuredSelector<AppState, StateProps>({
+  currentUser: selectCurrentUser,
 });
 
 const mapDispatchToProps = {

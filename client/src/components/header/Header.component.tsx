@@ -1,12 +1,16 @@
 import React, { FC } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { createStructuredSelector } from 'reselect';
 import Logo from '../../../public/assets/crown.svg';
 import { AuthenticatedUser } from '../../types/app.types';
 import { isValidCurrentUser } from '../../util/helpers';
-import './Header.styles.scss';
 import CartIcon from '../cart-icon/CartIcon.component';
 import CartDropdown from '../cart-dropdown/CartDropdown.component';
+import { selectCurrentUser } from '../../redux/user';
+import { selectCartHidden } from '../../redux/cart';
+import { AppState } from '../../redux';
+import './Header.styles.scss';
 
 interface StateProps {
   currentUser: AuthenticatedUser;
@@ -48,12 +52,9 @@ const Header: FC<Props> = ({ currentUser, hidden, signOut }) => {
   );
 };
 
-const mapStateToProps = ({
-  user: { currentUser },
-  cart: { hidden },
-}): StateProps => ({
-  currentUser,
-  hidden,
+const mapStateToProps = createStructuredSelector<AppState, StateProps>({
+  currentUser: selectCurrentUser,
+  hidden: selectCartHidden,
 });
 
 export default connect<StateProps, DispatchProps>(mapStateToProps)(Header);
