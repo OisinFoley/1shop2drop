@@ -15,3 +15,19 @@ export const addItem = (item: ShopItem) => ({
   type: CartActions.ADD_ITEM,
   payload: item,
 });
+
+/**
+ * @description Redux action to dispatch remove cart item to cart reducer
+ */
+export const removeItem = (item: ShopItem) => ({
+  type: CartActions.REMOVE_ITEM,
+  payload: item,
+});
+
+/**
+ * @description Redux action to dispatch clearing of all entries of a particular cart item to cart reducer
+ */
+export const clearCartItem = (item: ShopItem) => ({
+  type: CartActions.CLEAR_CART_ITEM,
+  payload: item,
+});

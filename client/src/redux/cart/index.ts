@@ -1,4 +1,9 @@
-import { toggleCartHidden, addItem } from './cart.actions';
+import {
+  toggleCartHidden,
+  addItem,
+  removeItem,
+  clearCartItem,
+} from './cart.actions';
 import {
   selectCartItemsCount,
   selectCartHidden,
@@ -8,6 +13,8 @@ import {
 export {
   toggleCartHidden,
   addItem,
+  removeItem,
+  clearCartItem,
   selectCartItemsCount,
   selectCartHidden,
   selectCartItems,
