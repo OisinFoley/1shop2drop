@@ -3,6 +3,7 @@ import {
   selectCartItemsCount,
   selectCartHidden,
   selectCartItems,
+  selectCartTotalCost,
 } from './cart.selectors';
 export {
   toggleCartHidden,
@@ -10,4 +11,5 @@ export {
   selectCartItemsCount,
   selectCartHidden,
   selectCartItems,
+  selectCartTotalCost,
 };
