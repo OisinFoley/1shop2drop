@@ -2,27 +2,19 @@ import React, { Component } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import Homepage from './pages/home/Home.component';
-import ShopPage from './pages/shop/Shop.component';
-import CheckoutPage from './pages/checkout/Checkout.component';
-
-import Header from './components/header/Header.component';
-import AuthenticatePage from './pages/authenticate/Authenticate.component';
-import { AuthenticatedUser } from './types/app.types';
-import { getUserFromToken, isValidCurrentUser } from './util/helpers';
-import { selectCurrentUser, setCurrentUser } from './redux/user';
-import { AppState } from './redux';
+import { AuthenticatePage, selectCurrentUser, setCurrentUser } from './user';
+import { AppState, Helpers, Constants, Types } from './shared';
+import { HomePage } from './home';
+import { ShopPage } from './shop';
+import { CheckoutPage } from './cart';
+import { Header } from './header';
 import './App.scss';
-import {
-  EMPTY_CURRENT_USER_STATE,
-  JWT_TOKEN_IDENTIFIER,
-} from './util/constants';
 
 interface StateProps {
-  currentUser: AuthenticatedUser;
+  currentUser: Types.AuthenticatedUser;
 }
 interface DispatchProps {
-  setCurrentUser: (user: AuthenticatedUser) => void;
+  setCurrentUser: (user: Types.AuthenticatedUser) => void;
 }
 
 type Props = Readonly<StateProps & DispatchProps>;
@@ -34,7 +26,7 @@ class App extends Component<Props> {
 
   componentDidMount() {
     const { setCurrentUser } = this.props;
-    const user: AuthenticatedUser = getUserFromToken();
+    const user: Types.AuthenticatedUser = Helpers.getUserFromToken();
     if (user) {
       setCurrentUser(user);
     }
@@ -42,8 +34,8 @@ class App extends Component<Props> {
 
   // TODO: handle me as a redux action
   private handleSignOut = (): void => {
-    localStorage.removeItem(JWT_TOKEN_IDENTIFIER);
-    this.props.setCurrentUser(EMPTY_CURRENT_USER_STATE);
+    localStorage.removeItem(Constants.JWT_TOKEN_IDENTIFIER);
+    this.props.setCurrentUser(Constants.EMPTY_CURRENT_USER_STATE);
   };
 
   render() {
@@ -51,14 +43,14 @@ class App extends Component<Props> {
       <div>
         <Header signOut={this.handleSignOut} />
         <Switch>
-          <Route exact path="/" component={Homepage} />
+          <Route exact path="/" component={HomePage} />
           <Route exact path="/shop" component={ShopPage} />
           <Route exact path="/checkout" component={CheckoutPage} />
           <Route
             exact
             path="/authenticate"
             render={() =>
-              isValidCurrentUser(this.props.currentUser) ? (
+              Helpers.isValidCurrentUser(this.props.currentUser) ? (
                 <Redirect to="/" />
               ) : (
                 <AuthenticatePage />
