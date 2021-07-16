@@ -1,5 +1,5 @@
-import { EMPTY_CURRENT_USER_STATE } from '../shared/util/constants';
-import { UserActions, UserActionTypes, UserState } from './user.types';
+import { EMPTY_CURRENT_USER_STATE } from "../shared/utils/constants";
+import { UserActions, UserActionTypes, UserState } from "./user.types";
 
 const INITIAL_STATE = {
   currentUser: EMPTY_CURRENT_USER_STATE,
