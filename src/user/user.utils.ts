@@ -1,4 +1,4 @@
-import { UserDetails, UserModel } from '../types/common';
+import { UserDetails, UserModel } from '../shared/shared.types';
 
 /**
  * @function

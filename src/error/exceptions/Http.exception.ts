@@ -1,4 +1,4 @@
-import { ErrorHandlingStrings } from '../utils/error-handling-strings';
+import { ErrorHandlingStrings } from '../utils/error-handling.strings';
 
 /**
  * Custom Error class which provides a Http Status code,
@@ -26,7 +26,6 @@ class HttpException extends Error {
     switch (true) {
       case message === ErrorHandlingStrings.email_already_taken:
       case message === ErrorHandlingStrings.no_user_for_email:
-      // TODO: the following error type is returing a 500 instead of a 400
       case message === ErrorHandlingStrings.password_not_match:
         return 400;
       default:

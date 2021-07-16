@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { UserControllerContract } from '../../types/common';
+import { UserControllerContract } from '../shared/shared.types';
 
 /**
  * @description Function that assigns route handlers to different request

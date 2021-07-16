@@ -1,4 +1,4 @@
-import { Config } from '../types/common';
+import { Config } from '../shared/shared.types';
 
 /** @implements {Config} */
 class ProductionConfig implements Config {

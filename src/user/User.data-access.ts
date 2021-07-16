@@ -1,11 +1,11 @@
-import HttpException from '../exceptions/Http.exception';
-import { User } from '../models';
+import HttpException from '../error/exceptions/Http.exception';
+import { User } from './';
 import {
   UserDAContract,
   UserInput,
   UserModel,
   userQueryParam,
-} from '../types/common';
+} from '../shared/shared.types';
 
 /**
  * @description Interacts with underlying data store engine

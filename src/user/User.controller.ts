@@ -5,7 +5,7 @@ import {
   RegisterInput,
   UserControllerContract,
   UserServiceContract,
-} from '../types/common';
+} from '../shared/shared.types';
 
 /**
  * @description - Controller for handling requests to /api/users endpoints

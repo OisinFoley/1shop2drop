@@ -2,8 +2,8 @@ import { Strategy as JwtStrategy, StrategyOptions } from 'passport-jwt';
 import { ExtractJwt } from 'passport-jwt';
 import passport from 'passport';
 import { Request, Response, NextFunction } from 'express';
-import { User } from '../models';
-import { Config, UserModel } from '../types/common';
+import { User } from '../user';
+import { Config, UserModel } from '../shared/shared.types';
 import Keys from './keys';
 
 export class PassportManager {
@@ -30,19 +30,16 @@ export class PassportManager {
   static initialize = (): void => {
     const opts: StrategyOptions = PassportManager.initStrategyOptions();
     passport.use(
-      new JwtStrategy(
-        opts,
-        async (jwt_payload, done): Promise<void> => {
-          try {
-            const user: UserModel = await User.findById(jwt_payload.id);
-            if (user) {
-              return done(null, user);
-            }
-          } catch (e) {
-            console.log(e);
+      new JwtStrategy(opts, async (jwt_payload, done): Promise<void> => {
+        try {
+          const user: UserModel = await User.findById(jwt_payload.id);
+          if (user) {
+            return done(null, user);
           }
+        } catch (e) {
+          console.log(e);
         }
-      )
+      })
     );
   };
 
