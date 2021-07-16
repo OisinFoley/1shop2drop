@@ -1,11 +1,11 @@
 import { Server } from 'http';
 import { Express } from 'express';
-import { DatabaseConnectionHandler } from '../data/DatabaseConnectionHandler';
+import { DatabaseLoader } from './Database.loader';
 
 /**
  * Class with functions to handle opening and closing server's request listener functionality
  */
-export class ServerSetupHelper {
+export class ServerLoader {
   /** @static */
   static server: Server = null;
   /**
@@ -17,7 +17,7 @@ export class ServerSetupHelper {
    */
   static initialiseRequestListener(app: Express): void {
     const port = process.env.PORT || 5000;
-    ServerSetupHelper.server = app.listen(port, () =>
+    ServerLoader.server = app.listen(port, () =>
       console.log(`Server running on port ${port}`)
     );
   }
@@ -28,9 +28,9 @@ export class ServerSetupHelper {
    * @public
    */
   static initialiseServerShutdownHandler(): void {
-    process.on('SIGINT', ServerSetupHelper.handleServerShutdown);
-    process.on('SIGTERM', ServerSetupHelper.handleServerShutdown);
-    process.on('SIGQUIT', ServerSetupHelper.handleServerShutdown);
+    process.on('SIGINT', ServerLoader.handleServerShutdown);
+    process.on('SIGTERM', ServerLoader.handleServerShutdown);
+    process.on('SIGQUIT', ServerLoader.handleServerShutdown);
   }
 
   /**
@@ -38,16 +38,16 @@ export class ServerSetupHelper {
    * @private
    */
   private static handleServerShutdown(signal: string): void {
-    if (!ServerSetupHelper.server) {
+    if (!ServerLoader.server) {
       return;
     }
     console.log(
       `Received ${signal}. Fulfilling open requests and shutting down server.`
     );
 
-    ServerSetupHelper.server.close(async () => {
+    ServerLoader.server.close(async () => {
       console.log('Server closed.');
-      const disconnectResult: number = await DatabaseConnectionHandler.disconnect();
+      const disconnectResult: number = await DatabaseLoader.disconnect();
       process.exit(disconnectResult);
     });
   }

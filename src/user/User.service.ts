@@ -8,11 +8,11 @@ import {
   UserDetails,
   UserModel,
   UserServiceContract,
-} from '../types/common';
+} from '../shared/shared.types';
 import Keys from '../config/keys';
-import HttpException from '../exceptions/Http.exception';
-import { ErrorHandlingStrings } from '../utils/error-handling-strings';
-import { buildUserDetails } from './utils';
+import HttpException from '../error/exceptions/Http.exception';
+import { ErrorHandlingStrings } from '../error/utils/error-handling.strings';
+import { buildUserDetails } from './user.utils';
 
 /**
  * @description Service for performing Business Logic and handling interaction with Data Access Layer
@@ -36,11 +36,10 @@ export class UserService implements UserServiceContract {
   public async register(userData: RegisterInput): Promise<UserModel> {
     const { email, password } = userData;
     try {
-      const existingUser: UserModel | null = await this.userDA.getUserByKeyValue(
-        {
+      const existingUser: UserModel | null =
+        await this.userDA.getUserByKeyValue({
           email,
-        }
-      );
+        });
       if (existingUser) {
         throw new HttpException(ErrorHandlingStrings.email_already_taken);
       }
@@ -75,7 +74,7 @@ export class UserService implements UserServiceContract {
       }
       const passwordIsMatch = await bcrypt.compare(password, user.password);
       if (!passwordIsMatch) {
-        throw new Error(ErrorHandlingStrings.password_not_match);
+        throw new HttpException(ErrorHandlingStrings.password_not_match);
       }
       const payload: UserDetails = buildUserDetails(user);
       return new Promise((resolve) => {

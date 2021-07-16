@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { Document } from 'mongoose';
-import { UserDA } from '../data-access';
-import { User } from '../models';
+import { UserDA, User } from '../user';
 
 export interface Config {
   /** Uri used to access the database engine being connected to */

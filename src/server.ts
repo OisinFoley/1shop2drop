@@ -1,15 +1,15 @@
-import app from './app';
 import config from './config/keys';
-import { ServerSetupHelper } from './config/ServerSetupHelper';
-import { DatabaseConnectionHandler } from './data/DatabaseConnectionHandler';
+import { ExpressLoader } from './loaders/Express.loader';
+import { ServerLoader } from './loaders/Server.loader';
+import { DatabaseLoader } from './loaders/Database.loader';
 
 const { databaseUri }: { databaseUri: string } = config;
 
 (async () => {
   try {
-    await DatabaseConnectionHandler.initialise(databaseUri);
-    ServerSetupHelper.initialiseRequestListener(app);
-    ServerSetupHelper.initialiseServerShutdownHandler();
+    await DatabaseLoader.initialise(databaseUri);
+    ServerLoader.initialiseRequestListener(new ExpressLoader().app);
+    ServerLoader.initialiseServerShutdownHandler();
   } catch (e) {
     console.error(`Server initialisation failed`);
     throw new Error(e);

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-export class DatabaseConnectionHandler {
+export class DatabaseLoader {
   /**
    * @description Initialises connection to database
    * @param {string} databaseUri - string used to connect to the database engine
