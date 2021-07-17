@@ -10,21 +10,23 @@ import { UserActions } from './user.types';
  * @todo Add an error dispatcher when code executes catch block
  * @param loginData
  */
-export const loginUser = (loginData: Types.LoginInput) => async (
-  dispatch: Dispatch
-): Promise<void> => {
-  try {
-    const res: Types.LoginResponse = await FetchApi.post(
-      Config.loginEndpoint,
-      loginData
-    );
-    localStorage.setItem(Constants.JWT_TOKEN_IDENTIFIER, res.token);
-    const decoded: Types.AuthenticatedUser = jwt_decode(res.token);
-    dispatch(setCurrentUser(decoded));
-  } catch (e) {
-    console.log(`Error: ${e}`);
-  }
-};
+export const loginUser =
+  (loginData: Types.LoginInput) =>
+  async (dispatch: Dispatch): Promise<void> => {
+    try {
+      const res: Types.LoginResponse = await FetchApi.post(
+        Config.loginEndpoint,
+        loginData
+      );
+      if (res.token) {
+        localStorage.setItem(Constants.JWT_TOKEN_IDENTIFIER, res.token);
+        const decoded: Types.AuthenticatedUser = jwt_decode(res.token);
+        dispatch(setCurrentUser(decoded));
+      }
+    } catch (e) {
+      console.log(`Error: ${e}`);
+    }
+  };
 
 /**
  * @description Redux action to dispatch new current user payload to user reducer
