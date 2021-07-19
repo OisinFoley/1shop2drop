@@ -9,7 +9,7 @@ import {
   UserModel,
   UserServiceContract,
 } from '../shared/shared.types';
-import Keys from '../config/keys';
+import keys from '../config';
 import HttpException from '../error/exceptions/Http.exception';
 import { ErrorHandlingStrings } from '../error/utils/error-handling.strings';
 import { buildUserDetails } from './user.utils';
@@ -79,7 +79,7 @@ export class UserService implements UserServiceContract {
       const payload: UserDetails = buildUserDetails(user);
       return new Promise((resolve) => {
         // assign JWT
-        jwt.sign(payload, Keys.password, { expiresIn: 3600 }, (err, token) => {
+        jwt.sign(payload, keys.jwtSecret, { expiresIn: 3600 }, (err, token) => {
           if (err) {
             throw new HttpException(err.message);
           }

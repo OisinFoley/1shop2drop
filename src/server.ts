@@ -1,4 +1,6 @@
-import config from './config/keys';
+import dotenv from 'dotenv';
+dotenv.config();
+import config from './config';
 import { ExpressLoader } from './loaders/Express.loader';
 import { ServerLoader } from './loaders/Server.loader';
 import { DatabaseLoader } from './loaders/Database.loader';

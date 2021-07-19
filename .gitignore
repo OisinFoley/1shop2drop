@@ -13,7 +13,9 @@ client/coverage
 # production
 client/build
 client/dist
+client/.env
 dist
+.env
 
 # development keys
 src/config/keys_dev.ts

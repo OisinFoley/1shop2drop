@@ -6,7 +6,7 @@ export interface Config {
   /** Uri used to access the database engine being connected to */
   readonly databaseUri: string;
   /** password, token or unique identifier used to authenticate app with the relevant database engine */
-  readonly password: string;
+  readonly jwtSecret: string;
 }
 
 export interface UserInput extends RegisterInput {}

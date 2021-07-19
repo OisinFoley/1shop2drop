@@ -1,5 +1,7 @@
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -59,6 +61,10 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'src/index.html',
+    }),
+    new Dotenv({ expand: true }),
+    new CopyWebpackPlugin({
+      patterns: [{ from: 'public', to: 'public' }],
     }),
   ],
 };

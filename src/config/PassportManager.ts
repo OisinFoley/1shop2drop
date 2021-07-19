@@ -4,7 +4,7 @@ import passport from 'passport';
 import { Request, Response, NextFunction } from 'express';
 import { User } from '../user';
 import { Config, UserModel } from '../shared/shared.types';
-import Keys from './keys';
+import keys from '.';
 
 export class PassportManager {
   /**
@@ -13,10 +13,10 @@ export class PassportManager {
    * @private @static
    * */
   private static initStrategyOptions(): StrategyOptions {
-    const config: Config = Keys;
+    const config: Config = keys;
     const opts: StrategyOptions = {
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: config.password,
+      secretOrKey: config.jwtSecret,
     };
     return opts;
   }
