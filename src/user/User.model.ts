@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { UserModel } from '../shared/shared.types';
+import { UserModel } from '1shop2drop-types';
 
 /** @class EcommerceUser */
 const UserSchema: Schema = new Schema({

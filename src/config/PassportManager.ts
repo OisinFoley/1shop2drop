@@ -3,7 +3,7 @@ import { ExtractJwt } from 'passport-jwt';
 import passport from 'passport';
 import { Request, Response, NextFunction } from 'express';
 import { User } from '../user';
-import { Config, UserModel } from '../shared/shared.types';
+import { Config, UserModel } from '1shop2drop-types';
 import keys from '.';
 
 export class PassportManager {

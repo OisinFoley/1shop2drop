@@ -8,7 +8,7 @@ import {
   UserDetails,
   UserModel,
   UserServiceContract,
-} from '../shared/shared.types';
+} from '1shop2drop-types';
 import keys from '../config';
 import HttpException from '../error/exceptions/Http.exception';
 import { ErrorHandlingStrings } from '../error/utils/error-handling.strings';

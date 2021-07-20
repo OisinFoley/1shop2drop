@@ -1,4 +1,4 @@
-import { UserDetails, UserModel } from '../shared/shared.types';
+import { UserDetails, UserModel } from '1shop2drop-types';
 
 /**
  * @function

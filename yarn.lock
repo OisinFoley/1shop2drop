@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
+"1shop2drop-types@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/1shop2drop-types/-/1shop2drop-types-1.0.1.tgz#c46ceb8e4474cdac9c10d7a15a9a437f17b499fb"
+  integrity sha512-Ou3CegprQDnB8zbHCZAx69CQ40ZPP7ZsiaTRQNSPR3P3ps/NksDzI3hJ0tGv4fu/i+hUyZEpaUQ6lsDumIEnJw==
+  dependencies:
+    express "^4.17.1"
+    mongoose "^5.11.7"
+
 "@babel/code-frame@^7.0.0":
   version "7.10.4"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.10.4.tgz#168da1a36e90da68ae8d49c0f1b48c7c6249213a"

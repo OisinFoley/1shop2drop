@@ -5,7 +5,7 @@ import {
   RegisterInput,
   UserControllerContract,
   UserServiceContract,
-} from '../shared/shared.types';
+} from '1shop2drop-types';
 
 /**
  * @description - Controller for handling requests to /api/users endpoints

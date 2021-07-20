@@ -1,10 +1,11 @@
 {
-  "name": "ecommerce-app__web-app",
+  "name": "1shop2drop__web-app",
   "version": "1.0.0",
   "description": "fictional ecommerce app with mocked payment functionality",
   "author": "OisinFoley <oisinfoley@yahoo.co.uk>",
   "license": "MIT",
   "dependencies": {
+    "1shop2drop-types": "^1.0.1",
     "@types/react": "^16.9.56",
     "@types/react-dom": "^16.9.9",
     "@types/react-router": "^5.1.8",

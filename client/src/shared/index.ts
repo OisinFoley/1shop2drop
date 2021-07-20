@@ -1,13 +1,13 @@
 import { rootReducer } from './root-reducer';
-import { AppState } from './shared.types';
+import type { AppState } from './root-reducer';
 import CustomButton from './components/CustomButton.component';
 import FormInput from './components/FormInput.component';
 import Config from './utils/config';
 import * as Constants from './utils/constants';
 import * as Helpers from './utils/helpers';
-import * as Types from './shared.types';
+import * as Types from '1shop2drop-types';
+export type { AppState };
 export {
-  AppState,
   rootReducer,
   CustomButton,
   FormInput,

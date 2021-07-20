@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { UserControllerContract } from '../shared/shared.types';
+import { UserControllerContract } from '1shop2drop-types';
 
 /**
  * @description Function that assigns route handlers to different request

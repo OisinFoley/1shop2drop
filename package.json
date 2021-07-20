@@ -1,11 +1,12 @@
 {
-  "name": "ecommerce-app__server",
+  "name": "1shop2drop__server",
   "version": "1.0.0",
   "description": "fictional ecommerce app with mocked payment functionality",
   "author": "OisinFoley <oisinfoley@yahoo.co.uk>",
   "main": "server.js",
   "license": "MIT",
   "dependencies": {
+    "1shop2drop-types": "^1.0.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "concurrently": "^5.3.0",
