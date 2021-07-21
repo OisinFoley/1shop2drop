@@ -7,7 +7,7 @@ import { DatabaseLoader } from './Database.loader';
  */
 export class ServerLoader {
   /** @static */
-  static server: Server = null;
+  static server: Server;
   /**
    * @description Opens Express server to listen for requests on specified port
    * @param {Express} app - Express server instance
@@ -48,7 +48,7 @@ export class ServerLoader {
     ServerLoader.server.close(async () => {
       console.log('Server closed.');
       const disconnectResult: number = await DatabaseLoader.disconnect();
-      process.exit(disconnectResult);
+      process.exitCode = disconnectResult;
     });
   }
 }

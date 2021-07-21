@@ -14,7 +14,7 @@ function errorMiddleware(
   error: HttpException,
   request: Request,
   response: Response,
-  next: NextFunction
+  next: NextFunction // eslint-disable-line
 ) {
   const status = error.status || 500;
   const message = error.message || 'Unknown error occurred - See StackTrace';

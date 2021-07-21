@@ -35,23 +35,18 @@ export class UserService implements UserServiceContract {
    */
   public async register(userData: RegisterInput): Promise<UserModel> {
     const { email, password } = userData;
-    try {
-      const existingUser: UserModel | null =
-        await this.userDA.getUserByKeyValue({
-          email,
-        });
-      if (existingUser) {
-        throw new HttpException(ErrorHandlingStrings.email_already_taken);
-      }
-      const salt = await bcrypt.genSalt(10);
-      const hashedSalt = await bcrypt.hash(password, salt);
-      userData.password = hashedSalt;
-
-      const createdUser: UserModel = await this.userDA.addUser(userData);
-      return createdUser;
-    } catch (e) {
-      throw e;
+    const existingUser: UserModel | null = await this.userDA.getUserByKeyValue({
+      email,
+    });
+    if (existingUser) {
+      throw new HttpException(ErrorHandlingStrings.email_already_taken);
     }
+    const salt = await bcrypt.genSalt(10);
+    const hashedSalt = await bcrypt.hash(password, salt);
+    userData.password = hashedSalt;
+
+    const createdUser: UserModel = await this.userDA.addUser(userData);
+    return createdUser;
   }
 
   /**
@@ -64,33 +59,29 @@ export class UserService implements UserServiceContract {
    * @public
    */
   public async login(loginData: LoginInput): Promise<LoginResponse> {
-    try {
-      const { email, password } = loginData;
-      const user: UserModel | null = await this.userDA.getUserByKeyValue({
-        email,
-      });
-      if (!user) {
-        throw new HttpException(ErrorHandlingStrings.no_user_for_email);
-      }
-      const passwordIsMatch = await bcrypt.compare(password, user.password);
-      if (!passwordIsMatch) {
-        throw new HttpException(ErrorHandlingStrings.password_not_match);
-      }
-      const payload: UserDetails = buildUserDetails(user);
-      return new Promise((resolve) => {
-        // assign JWT
-        jwt.sign(payload, keys.jwtSecret, { expiresIn: 3600 }, (err, token) => {
-          if (err) {
-            throw new HttpException(err.message);
-          }
-          resolve({
-            success: true,
-            token: `Bearer ${token}`,
-          });
+    const { email, password } = loginData;
+    const user: UserModel | null = await this.userDA.getUserByKeyValue({
+      email,
+    });
+    if (!user) {
+      throw new HttpException(ErrorHandlingStrings.no_user_for_email);
+    }
+    const passwordIsMatch = await bcrypt.compare(password, user.password);
+    if (!passwordIsMatch) {
+      throw new HttpException(ErrorHandlingStrings.password_not_match);
+    }
+    const payload: UserDetails = buildUserDetails(user);
+    return new Promise(resolve => {
+      // assign JWT
+      jwt.sign(payload, keys.jwtSecret, { expiresIn: 3600 }, (err, token) => {
+        if (err) {
+          throw new HttpException(err.message);
+        }
+        resolve({
+          success: true,
+          token: `Bearer ${token}`,
         });
       });
-    } catch (e) {
-      throw e;
-    }
+    });
   }
 }

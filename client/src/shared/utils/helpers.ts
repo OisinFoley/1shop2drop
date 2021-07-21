@@ -1,6 +1,7 @@
 import jwt_decode from 'jwt-decode';
 import { Types } from '../';
 import { EMPTY_CURRENT_USER_STATE, JWT_TOKEN_IDENTIFIER } from './constants';
+import { UserJwtPayload } from '1shop2drop-types';
 
 /**
  * @description Checks if currentUser argument is truthy and has truthy values
@@ -21,7 +22,7 @@ export const isValidCurrentUser = (
 export const getUserFromToken = (): Types.AuthenticatedUser | null => {
   if (localStorage.getItem(JWT_TOKEN_IDENTIFIER)) {
     // decode token info
-    const decodedToken: any = jwt_decode(
+    const decodedToken = jwt_decode<UserJwtPayload>(
       localStorage.getItem(JWT_TOKEN_IDENTIFIER)
     );
 

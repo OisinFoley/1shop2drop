@@ -8,6 +8,7 @@ import { HomePage } from './home';
 import { ShopPage } from './shop';
 import { CheckoutPage } from './cart';
 import { Header } from './header';
+import { UserJwtPayload } from '1shop2drop-types';
 import './App.scss';
 
 interface StateProps {
@@ -26,7 +27,7 @@ class App extends Component<Props> {
 
   componentDidMount() {
     const { setCurrentUser } = this.props;
-    const user: Types.AuthenticatedUser = Helpers.getUserFromToken();
+    const user: UserJwtPayload = Helpers.getUserFromToken();
     if (user) {
       setCurrentUser(user);
     }

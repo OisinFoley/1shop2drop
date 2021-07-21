@@ -2,12 +2,13 @@
 # yarn lockfile v1
 
 
-"1shop2drop-types@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/1shop2drop-types/-/1shop2drop-types-1.0.1.tgz#c46ceb8e4474cdac9c10d7a15a9a437f17b499fb"
-  integrity sha512-Ou3CegprQDnB8zbHCZAx69CQ40ZPP7ZsiaTRQNSPR3P3ps/NksDzI3hJ0tGv4fu/i+hUyZEpaUQ6lsDumIEnJw==
+"1shop2drop-types@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/1shop2drop-types/-/1shop2drop-types-1.0.2.tgz#d66acf552d3a545b0de145461ee1e48c7c798215"
+  integrity sha512-/h2Q3V7Ihz+g/CgYrlPqZSKcBWcLnEgaquHhx6mierzaGKB9ihBmsgNPtyEo4Zj/N1VSzsNvQjmfmltBARmlpg==
   dependencies:
     express "^4.17.1"
+    jwt-decode "3.1.2"
     mongoose "^5.11.7"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.12.11":
@@ -4429,6 +4430,11 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
+jwt-decode@3.1.2, jwt-decode@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-3.1.2.tgz#3fb319f3675a2df0c2895c8f5e9fa4b67b04ed59"
+  integrity sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==
+
 kareem@2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/kareem/-/kareem-2.3.2.tgz#78c4508894985b8d38a0dc15e1a8e11078f2ca93"
@@ -5285,9 +5291,11 @@ opn@^5.5.0:
     is-wsl "^1.1.0"
 
 optional-require@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/optional-require/-/optional-require-1.0.3.tgz#275b8e9df1dc6a17ad155369c2422a440f89cb07"
-  integrity sha512-RV2Zp2MY2aeYK5G+B/Sps8lW5NHAzE5QClbFP15j+PWmP+T9PxlJXBOOLoSAdgwFvS4t0aMR4vpedMkbHfh0nA==
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/optional-require/-/optional-require-1.1.0.tgz#01dfbafbbc2e8d79e33558f5af3917f22cc35c2c"
+  integrity sha512-5/7ee3eTFg1P+F9usTubuNCLfWRK6DjV0EFHLlbp7MmV5UlWqpWIVSnH6xo4u+fc5WHXaJuvJi6iuYnfDyj6oQ==
+  dependencies:
+    require-at "^1.0.6"
 
 original@^1.0.0:
   version "1.0.2"
@@ -6133,6 +6141,11 @@ request@^2.88.0, request@^2.88.2:
     tough-cookie "~2.5.0"
     tunnel-agent "^0.6.0"
     uuid "^3.3.2"
+
+require-at@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/require-at/-/require-at-1.0.6.tgz#9eb7e3c5e00727f5a4744070a7f560d4de4f6e6a"
+  integrity sha512-7i1auJbMUrXEAZCOQ0VNJgmcT2VOKPRl2YGJwgpHpC9CE91Mv4/4UYIUm4chGJaI381ZDq1JUicFii64Hapd8g==
 
 require-directory@^2.1.1:
   version "2.1.1"

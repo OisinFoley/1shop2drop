@@ -32,7 +32,7 @@ export class PassportManager {
     passport.use(
       new JwtStrategy(opts, async (jwt_payload, done): Promise<void> => {
         try {
-          const user: UserModel = await User.findById(jwt_payload.id);
+          const user: UserModel | null = await User.findById(jwt_payload.id);
           if (user) {
             return done(null, user);
           }

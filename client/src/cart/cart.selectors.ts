@@ -5,17 +5,17 @@ const selectCart = (state: AppState) => state.cart;
 
 export const selectCartItems = createSelector(
   [selectCart],
-  (cart) => cart.cartItems
+  cart => cart.cartItems
 );
 
 export const selectCartHidden = createSelector(
   [selectCart],
-  (cart) => cart.hidden
+  cart => cart.hidden
 );
 
 export const selectCartItemsCount = createSelector(
   [selectCartItems],
-  (cartItems) =>
+  cartItems =>
     cartItems.reduce(
       (accumulatedQuantity: number, cartItem: Types.ShoppingCartItem) =>
         accumulatedQuantity + cartItem.quantity,
@@ -25,7 +25,7 @@ export const selectCartItemsCount = createSelector(
 
 export const selectCartTotalCost = createSelector(
   [selectCartItems],
-  (cartItems) =>
+  cartItems =>
     cartItems.reduce(
       (accumulatedQuantity: number, cartItem: Types.ShoppingCartItem) =>
         accumulatedQuantity + cartItem.quantity * cartItem.price,

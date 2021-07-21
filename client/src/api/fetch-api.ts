@@ -6,16 +6,13 @@ import { Types } from '../shared';
  * requests via the FetchApi
  */
 export class FetchApi {
-  static token: string = '';
+  static token = '';
   /**
    * Makes a Http POST request, using the url and data arguments
    * as the request endpoint and body
    * @static
    */
-  static async post(
-    url: string = '',
-    data: object
-  ): Promise<Types.LoginResponse> {
+  static async post(url = '', data: object): Promise<Types.LoginResponse> {
     const options: RequestInit = FetchApi.buildFetchOptions({
       method: HTTPMethod.POST,
       body: data,

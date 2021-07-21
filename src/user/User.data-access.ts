@@ -36,7 +36,7 @@ export class UserDA implements UserDAContract {
    */
   public async getUserByKeyValue(
     queryParamObj: UserQueryParam
-  ): Promise<UserModel> {
+  ): Promise<UserModel | null> {
     try {
       return (await User.findOne(queryParamObj)) || null;
     } catch (e) {

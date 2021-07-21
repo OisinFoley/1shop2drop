@@ -11,7 +11,7 @@ interface Props {
   required: boolean;
 }
 
-const FormInput: FC<Props> = ({ handleChange, label, id, ...otherProps }) => {
+const FormInput: FC<Props> = ({ handleChange, label, ...otherProps }) => {
   return (
     <div className="group">
       <input

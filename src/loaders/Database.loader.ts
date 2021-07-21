@@ -15,7 +15,7 @@ export class DatabaseLoader {
         useUnifiedTopology: true,
       })
       .then(() => console.info('MongoDb connected.'))
-      .catch((err) => {
+      .catch(err => {
         throw new Error(err);
       });
   }
@@ -26,9 +26,9 @@ export class DatabaseLoader {
    * @returns {Promise<number>}
    * @public @static
    */
-  static disconnect(): Promise<number> {
-    return new Promise(async (resolve) => {
-      mongoose.disconnect((err) => {
+  static async disconnect(): Promise<number> {
+    return new Promise(resolve => {
+      mongoose.disconnect(err => {
         console.log('Database connection closed. Preparing to exit.');
         return resolve(err ? 1 : 0);
       });

@@ -13,7 +13,7 @@ const { databaseUri }: { databaseUri: string } = config;
     ServerLoader.initialiseRequestListener(new ExpressLoader().app);
     ServerLoader.initialiseServerShutdownHandler();
   } catch (e) {
-    console.error(`Server initialisation failed`);
+    console.error('Server initialisation failed');
     throw new Error(e);
   }
 })();

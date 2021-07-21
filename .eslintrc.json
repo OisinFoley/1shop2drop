@@ -1,0 +1,16 @@
+{
+  "extends": "./node_modules/gts/",
+  "rules": {
+    "@typescript-eslint/no-empty-interface": "off",
+    "object-curly-spacing": "off",
+    "@typescript-eslint/object-curly-spacing": ["error", "always"]
+  },
+  "overrides": [
+    {
+      "files": "client/webpack.config.js",
+      "rules": {
+        "node/no-unpublished-require": 0
+      }
+    }
+  ]
+}

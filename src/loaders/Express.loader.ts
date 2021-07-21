@@ -1,4 +1,4 @@
-import express, { Request, Response, Express, NextFunction } from 'express';
+import express, { Request, Response, Express } from 'express';
 import path from 'path';
 import cors from 'cors';
 import { errorMiddleware } from '../error/middlewares/error.middleware';
@@ -15,7 +15,8 @@ class ExpressLoader {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     // TODO: setup origin whitelist for use in production
-    app.use(cors());
+    const corstOpts = cors({ origin: true });
+    app.use(corstOpts);
 
     // passport middleware
     PassportManager.initialize();
