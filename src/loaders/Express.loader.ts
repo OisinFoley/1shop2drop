@@ -28,12 +28,10 @@ class ExpressLoader {
 
     // serve static assets if production
     if (process.env.NODE_ENV === 'production') {
-      app.use(express.static('client/dist'));
+      app.use(express.static('dist/client'));
 
       app.get('*', (req: Request, res: Response) => {
-        res.sendFile(
-          path.resolve(__dirname, '../../', 'client', 'dist', 'index.html')
-        );
+        res.sendFile(path.resolve(__dirname, '../../', 'client', 'index.html'));
       });
     }
 

@@ -1,0 +1,13 @@
+{
+  "apps": [
+    {
+      "name": "1shop2drop_prod",
+      "script": "node dist/src/server.js",
+      "args": [],
+      "out_file": "./logs/log.txt",
+      "env": {
+        "ENV_PATH": "./.env"
+      }
+    }
+  ]
+}

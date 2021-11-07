@@ -18,7 +18,10 @@
     "mongoose": "^5.11.7",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
-    "tslint": "^6.1.3"
+    "tslint": "^6.1.3",
+    "typescript": "^4.0.5",
+    "@types/node": "^14.14.12",
+    "gts": "^3.1.0"
   },
   "scripts": {
     "build": "tsc -p . && cp .env ./dist/.env",
@@ -32,7 +35,6 @@
     "clean": "gts clean",
     "compile": "tsc",
     "fix": "gts fix",
-    "prepare": "yarn run compile",
     "pretest": "yarn run compile",
     "posttest": "yarn run lint"
   },
@@ -43,13 +45,10 @@
     "@types/jsonwebtoken": "^8.5.0",
     "@types/jwt-decode": "^3.1.0",
     "@types/mongoose": "^5.10.2",
-    "@types/node": "^14.14.12",
     "@types/passport": "^1.0.5",
     "@types/passport-jwt": "^3.0.3",
-    "gts": "^3.1.0",
     "html-webpack-plugin": "^4.4.1",
     "node-sass": "^5.0.0",
-    "ts-node-dev": "^1.1.1",
-    "typescript": "^4.0.5"
+    "ts-node-dev": "^1.1.1"
   }
 }

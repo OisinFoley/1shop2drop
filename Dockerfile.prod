@@ -1,0 +1,35 @@
+FROM node:14
+
+WORKDIR /usr/src/app
+
+# copy package.json and yarn lock files to allow later layer caching of dependencies
+COPY ["package.json", "yarn.lock", "./"]
+COPY ["client/package.json", "client/yarn.lock", "./client/"]
+
+# Set 'node' user as owner of directories that PM2 will require access to
+RUN chown -R node:node /usr/src/app
+
+RUN yarn global add pm2
+RUN pm2 install pm2-logrotate
+# Set to 2M = 2MB
+RUN pm2 set pm2-logrotate:max_size 2M
+
+# Install dependencies
+RUN yarn install --prod --frozen-lockfile
+WORKDIR /usr/src/app/client
+RUN yarn install --prod --frozen-lockfile
+RUN yarn add -D webpack-cli
+# Set working directory back to image root
+WORKDIR /usr/src/app/
+# Copy main code base
+COPY . ./
+RUN yarn run build-all
+
+# Set non-root user
+USER node
+
+ENV NODE_ENV=production
+
+EXPOSE 5000
+
+CMD ["pm2-runtime", "start", "pm2-config.json"]

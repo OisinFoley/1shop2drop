@@ -1,0 +1,45 @@
+# Docker
+# Build and push an image to Azure Container Registry
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+  - none
+
+resources:
+  - repo: self
+
+variables:
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+stages:
+  - stage: Build
+    displayName: Build and push stage
+    jobs:
+      - job:
+        steps:
+          - task: DownloadSecureFile@1
+            inputs:
+              secureFile: 'client-.env'
+          - task: DownloadSecureFile@1
+            inputs:
+              secureFile: 'server-.env'
+          - task: CopyFiles@2
+            inputs:
+              SourceFolder: $(Agent.TempDirectory)
+              Contents: 'client-.env'
+              TargetFolder: $(System.DefaultWorkingDirectory)/client/
+          - task: CopyFiles@2
+            inputs:
+              SourceFolder: $(Agent.TempDirectory)
+              Contents: 'server-.env'
+              TargetFolder: $(System.DefaultWorkingDirectory)/
+          - script: mv $(System.DefaultWorkingDirectory)/client/client-.env $(System.DefaultWorkingDirectory)/client/.env
+          - script: mv $(System.DefaultWorkingDirectory)/server-.env $(System.DefaultWorkingDirectory)/.env
+          - task: Docker@2
+            inputs:
+              containerRegistry: $(containerRegistry)
+              repository: $(imageRepository)
+              command: 'buildAndPush'
+              Dockerfile: $(dockerfilePath)
+              tags: $(tags)
