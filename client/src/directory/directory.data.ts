@@ -1,6 +1,6 @@
-import { DirectoryItem } from './home.types';
+import { Types } from '../shared';
 
-export const sections: DirectoryItem[] = [
+export const sections: Types.DirectoryItem[] = [
   {
     title: 'hats',
     imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',

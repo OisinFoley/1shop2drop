@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { AuthenticatePage, selectCurrentUser, setCurrentUser } from './user';
 import { AppState, Helpers, Constants, Types } from './shared';
-import { HomePage } from './home';
+import { DirectoryPage } from './directory';
 import { ShopPage } from './shop';
 import { CheckoutPage } from './cart';
 import { Header } from './header';
@@ -44,7 +44,7 @@ class App extends Component<Props> {
       <div>
         <Header signOut={this.handleSignOut} />
         <Switch>
-          <Route exact path="/" component={HomePage} />
+          <Route exact path="/" component={DirectoryPage} />
           <Route exact path="/shop" component={ShopPage} />
           <Route exact path="/checkout" component={CheckoutPage} />
           <Route
