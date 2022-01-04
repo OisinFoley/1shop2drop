@@ -1,16 +1,17 @@
 import { createSelector } from 'reselect';
 import { Types, AppState } from '../shared';
+import { CartState } from './cart.types';
 
 const selectCart = (state: AppState) => state.cart;
 
 export const selectCartItems = createSelector(
   [selectCart],
-  cart => cart.cartItems
+  (cart: CartState) => cart.cartItems
 );
 
 export const selectCartHidden = createSelector(
   [selectCart],
-  cart => cart.hidden
+  (cart: CartState) => cart.hidden
 );
 
 export const selectCartItemsCount = createSelector(

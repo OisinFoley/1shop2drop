@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"1shop2drop-types@1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/1shop2drop-types/-/1shop2drop-types-1.0.2.tgz#d66acf552d3a545b0de145461ee1e48c7c798215"
-  integrity sha512-/h2Q3V7Ihz+g/CgYrlPqZSKcBWcLnEgaquHhx6mierzaGKB9ihBmsgNPtyEo4Zj/N1VSzsNvQjmfmltBARmlpg==
+"1shop2drop-types@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/1shop2drop-types/-/1shop2drop-types-1.2.0.tgz#4d93d53169bdc6dd7a4266a106028e7e25eabb5f"
+  integrity sha512-ShRUxA144sFGQ4tKZpazKalSjCfF6TOQqWZSAybsS20IZbqKxbal9kl9QpPzZktUBWTO6u/GnxxUdHSZAamxoQ==
   dependencies:
     express "^4.17.1"
     jwt-decode "3.1.2"
@@ -3488,11 +3488,6 @@ redent@^3.0.0:
   dependencies:
     indent-string "^4.0.0"
     strip-indent "^3.0.0"
-
-redux-persist@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-6.0.0.tgz#b4d2972f9859597c130d40d4b146fecdab51b3a8"
-  integrity sha512-71LLMbUq2r02ng2We9S215LtPu3fY0KgaGE0k8WRgl6RkqxtGfl7HUozz1Dftwsb0D/5mZ8dwAaPbtnzfvbEwQ==
 
 regexp-clone@1.0.0, regexp-clone@^1.0.0:
   version "1.0.0"

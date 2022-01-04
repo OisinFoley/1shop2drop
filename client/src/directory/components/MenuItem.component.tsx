@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { DirectoryItem } from '../';
+import { Types } from '../../shared';
 import '../styles/MenuItem.styles.scss';
 
-interface Props extends RouteComponentProps, DirectoryItem {}
+interface Props extends RouteComponentProps, Types.DirectoryItem {}
 
 const MenuItem: FC<Props> = ({
   title,
