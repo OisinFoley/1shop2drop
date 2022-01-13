@@ -45,7 +45,7 @@ class App extends Component<Props> {
         <Header signOut={this.handleSignOut} />
         <Switch>
           <Route exact path="/" component={DirectoryPage} />
-          <Route exact path="/shop" component={ShopPage} />
+          <Route path="/shop" component={ShopPage} />
           <Route exact path="/checkout" component={CheckoutPage} />
           <Route
             exact
