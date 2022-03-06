@@ -1,5 +1,7 @@
 # 1shop2drop
 
+[![Build Status](https://dev.azure.com/OFoley/1shop2drop/_apis/build/status/1shop2drop-github-source?branchName=develop)](https://dev.azure.com/OFoley/1shop2drop/_build/latest?definitionId=12&branchName=develop)
+
 ## A Typescript-based NodeJS and React app to list store items, add them to your cart and then process payment via Stripe API
 
 ## Setup Requirements
