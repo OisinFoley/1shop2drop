@@ -26,9 +26,16 @@
     "reselect": "^4.0.0",
     "tslint": "^6.1.3"
   },
+  "jest-junit": {
+    "suiteNameTemplate": "{filepath}",
+    "outputDirectory": ".",
+    "outputName": "junit.xml"
+  },
   "scripts": {
     "start": "webpack-dev-server",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:ci": "npm run test -- --watchAll=false --reporters=default --reporters=jest-junit",
     "create": "webpack",
     "build": "webpack"
   },
@@ -37,6 +44,7 @@
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
     "@svgr/webpack": "^5.5.0",
+    "@types/jest": "^27.4.1",
     "@types/lodash": "^4.14.165",
     "@types/react-redux": "^7.1.15",
     "@types/react-router-dom": "^5.1.6",
@@ -47,11 +55,15 @@
     "babel-preset-expo": "^8.3.0",
     "css-loader": "^4.3.0",
     "html-webpack-plugin": "^4.4.1",
+    "jest": "^27.5.1",
+    "jest-junit": "^13.0.0",
     "node-sass": "^5.0.0",
     "sass": "^1.29.0",
     "sass-loader": "^10.1.0",
     "style-loader": "^1.2.1",
+    "ts-jest": "^27.1.3",
     "ts-loader": "^8.0.11",
+    "ts-node": "^10.5.0",
     "typescript": "^4.0.5",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",

@@ -3,7 +3,18 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-  - none
+  branches:
+    include:
+      - develop
+pr:
+  branches:
+    include:
+      - develop
+  paths:
+    include:
+      - src
+      - client/src
+      - 'Dockerfile**'
 
 resources:
   - repo: self
@@ -13,33 +24,159 @@ variables:
   vmImageName: 'ubuntu-latest'
 
 stages:
-  - stage: Build
-    displayName: Build and push stage
+  - stage: CI
+    displayName: CI Build and Publish stage
     jobs:
-      - job:
+      - job: 'BuildTestPublishArtifact'
+        displayName: 'Build dependencies, test repo, save and publish artifact'
         steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '14.18'
+          - task: Yarn@3
+            displayName: 'Install typescript global'
+            inputs:
+              arguments: 'global add typescript'
+          - task: Yarn@3
+            displayName: 'Install /client'
+            inputs:
+              projectDirectory: $(System.DefaultWorkingDirectory)/client/
+              arguments: 'install'
           - task: DownloadSecureFile@1
+            displayName: 'Load /client .env'
             inputs:
               secureFile: 'client-.env'
           - task: DownloadSecureFile@1
+            displayName: 'Load root .env'
             inputs:
               secureFile: 'server-.env'
           - task: CopyFiles@2
+            displayName: 'Move /client .env to /client'
             inputs:
               SourceFolder: $(Agent.TempDirectory)
               Contents: 'client-.env'
               TargetFolder: $(System.DefaultWorkingDirectory)/client/
           - task: CopyFiles@2
+            displayName: 'Move root .env to project root'
             inputs:
               SourceFolder: $(Agent.TempDirectory)
               Contents: 'server-.env'
               TargetFolder: $(System.DefaultWorkingDirectory)/
           - script: mv $(System.DefaultWorkingDirectory)/client/client-.env $(System.DefaultWorkingDirectory)/client/.env
           - script: mv $(System.DefaultWorkingDirectory)/server-.env $(System.DefaultWorkingDirectory)/.env
-          - task: Docker@2
+          - task: Yarn@3
+            displayName: 'Test /client'
+            continueOnError: true
             inputs:
-              containerRegistry: $(containerRegistry)
+              projectDirectory: $(System.DefaultWorkingDirectory)/client/
+              arguments: 'run test:coverage'
+          - task: PublishCodeCoverageResults@1
+            displayName: 'Publish code coverage result'
+            inputs:
+              codeCoverageTool: Cobertura # or JaCoCo
+              summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/*cobertura-coverage.xml'
+              reportDirectory: '$(System.DefaultWorkingDirectory)/**/coverage'
+          - task: Docker@2
+            displayName: 'Build docker image'
+            inputs:
               repository: $(imageRepository)
-              command: 'buildAndPush'
+              command: 'build'
               Dockerfile: $(dockerfilePath)
-              tags: $(tags)
+              tags: |
+                $(Build.BuildId)
+                $(tags)
+          - task: Docker@2
+            displayName: 'Save docker image as rar'
+            inputs:
+              repository: $(imageRepository)
+              command: save
+              arguments: '$(imageRepository):$(Build.BuildId) -o $(Build.ArtifactStagingDirectory)/$(imageRepository).rar'
+              tags: $(Build.BuildId)
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish docker image as artifact'
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+              ArtifactName: 'drop'
+              publishLocation: 'Container'
+
+  - stage: CDDev
+    displayName: 'CD stage for DEV'
+    jobs:
+      - deployment: Dev
+        displayName: 'Deploy to DEV'
+        environment: 1shop2drop-DEV
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: Docker@2
+                  displayName: 'Load Image from Tar'
+                  inputs:
+                    command: load
+                    arguments: '--input $(Pipeline.Workspace)/drop/$(imageRepository).rar'
+                - task: Docker@2
+                  displayName: 'ReTag Image with ACR Name - $(containerRegistryDev) and BuildId'
+                  inputs:
+                    containerRegistry: $(containerRegistryDev)
+                    repository: $(imageRepository)
+                    command: tag
+                    arguments: '$(imageRepository):$(Build.BuildId) $(containerRegistryDev).azurecr.io/$(imageRepository):$(Build.BuildId)'
+                - task: Docker@2
+                  displayName: 'ReTag Image with ACR Name - $(containerRegistryDev) and $(tags)'
+                  inputs:
+                    containerRegistry: $(containerRegistryDev)
+                    repository: $(imageRepository)
+                    command: tag
+                    arguments: '$(imageRepository):$(Build.BuildId) $(containerRegistryDev).azurecr.io/$(imageRepository):$(tags)'
+                - task: Docker@2
+                  displayName: 'Push Image to ACR'
+                  inputs:
+                    containerRegistry: $(containerRegistryDev)
+                    repository: '$(imageRepository)'
+                    command: push
+                    tags: |
+                      $(tags)
+                      $(Build.BuildId)
+
+  - stage: CDTest
+    displayName: 'CD stage for TEST'
+    dependsOn: CI
+    jobs:
+      - deployment: Test
+        condition:
+          and(in(stageDependencies.CI.BuildTestPublishArtifact.result, 'Succeeded'),
+          notIn(stageDependencies.CI.BuildTestPublishArtifact.result, 'SucceededWithIssues'))
+        displayName: 'Deploy to TEST'
+        environment: 1shop2drop-TEST
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: Docker@2
+                  displayName: 'Load Image from Tar'
+                  inputs:
+                    command: load
+                    arguments: '--input $(Pipeline.Workspace)/drop/$(imageRepository).rar'
+                - task: Docker@2
+                  displayName: 'ReTag Image with ACR Name - $(containerRegistryTest) and BuildId'
+                  inputs:
+                    containerRegistry: $(containerRegistryTest)
+                    repository: $(imageRepository)
+                    command: tag
+                    arguments: '$(imageRepository):$(Build.BuildId) $(containerRegistryTest).azurecr.io/$(imageRepository):$(Build.BuildId)'
+                - task: Docker@2
+                  displayName: 'ReTag Image with ACR Name - $(containerRegistryTest) and $(tags)'
+                  inputs:
+                    containerRegistry: $(containerRegistryTest)
+                    repository: $(imageRepository)
+                    command: tag
+                    arguments: '$(imageRepository):$(Build.BuildId) $(containerRegistryTest).azurecr.io/$(imageRepository):$(tags)'
+                - task: Docker@2
+                  displayName: 'Push Image to ACR'
+                  inputs:
+                    containerRegistry: $(containerRegistryTest)
+                    repository: $(imageRepository)
+                    command: push
+                    tags: |
+                      $(tags)
+                      $(Build.BuildId)

@@ -9,6 +9,7 @@ client/node_modules
 
 # testing
 client/coverage
+client/junit.xml
 
 # production
 client/build
