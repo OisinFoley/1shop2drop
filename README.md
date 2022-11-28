@@ -36,3 +36,5 @@ Either `yarn run dev` or `npm run dev` from root directory of repo.
 ## Notable Dependencies
 
 This app relies on typings defined in the [1shop2drop-types](https://github.com/OisinFoley/1shop2drop-types) repo.
+
+##
