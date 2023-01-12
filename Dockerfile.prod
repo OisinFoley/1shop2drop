@@ -17,10 +17,11 @@ RUN pm2 set pm2-logrotate:max_size 2M
 # Install dependencies
 RUN yarn install --prod --frozen-lockfile
 WORKDIR /usr/src/app/client
-RUN yarn install --prod --frozen-lockfile
-RUN yarn add -D webpack-cli
+RUN yarn install
+
 # Set working directory back to image root
 WORKDIR /usr/src/app/
+
 # Copy main code base
 COPY . ./
 RUN yarn run build-all
